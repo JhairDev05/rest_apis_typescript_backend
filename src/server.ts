@@ -15,7 +15,7 @@ export async function connectDB() {
         // console.log(colors.blue('Conexión exitosa con la DB'));
     } catch (error) {
         // console.log(error);
-        console.log(colors.red.bold('Hubo un error al conectar a la BD'));
+        console.log(colors.red.bold('Hubo un error al conectar a la BD'), error);
     }
 }
 
@@ -27,7 +27,7 @@ const server = express();
 // Permitir conexiones
 const corsOptions: CorsOptions = {
     origin: function (origin, callback) {
-        if(origin === process.env.FRONTEND_URL) {
+        if(!origin || origin === process.env.FRONTEND_URL) {
             callback(null, true)
         } else {
             callback(new Error('Error de CORS'))
